@@ -79,7 +79,16 @@ export default function App() {
           </h1>
         </div>
         <div className="flex items-center gap-4">
-          <button 
+          <a
+            href="/regular-season-schedule.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 bg-mariners-navy border border-mariners-teal text-mariners-teal hover:bg-mariners-teal hover:text-white px-4 py-2 rounded-lg transition-colors font-semibold text-sm"
+          >
+            <FileText size={18} />
+            Original PDF
+          </a>
+          <button
             onClick={handlePrint}
             className="flex items-center gap-2 bg-mariners-teal hover:bg-mariners-teal/80 px-4 py-2 rounded-lg transition-colors font-semibold text-sm"
           >
@@ -101,17 +110,17 @@ export default function App() {
             transition={{ type: 'spring', damping: 20, stiffness: 100 }}
             className="h-full w-full p-4 md:p-8"
           >
-            <MonthCalendar 
-              monthInfo={MONTHS[currentMonthIdx]} 
-              notes={notes} 
-              onSaveNote={saveNote} 
+            <MonthCalendar
+              monthInfo={MONTHS[currentMonthIdx]}
+              notes={notes}
+              onSaveNote={saveNote}
             />
           </motion.div>
         </AnimatePresence>
 
         {/* Navigation Controls */}
         <div className="absolute inset-y-0 left-0 flex items-center p-4">
-          <button 
+          <button
             onClick={prevMonth}
             disabled={currentMonthIdx === 0}
             className="p-3 rounded-full bg-mariners-navy/80 border border-mariners-teal/30 hover:bg-mariners-teal transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
@@ -120,7 +129,7 @@ export default function App() {
           </button>
         </div>
         <div className="absolute inset-y-0 right-0 flex items-center p-4">
-          <button 
+          <button
             onClick={nextMonth}
             disabled={currentMonthIdx === MONTHS.length - 1}
             className="p-3 rounded-full bg-mariners-navy/80 border border-mariners-teal/30 hover:bg-mariners-teal transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
@@ -137,10 +146,10 @@ export default function App() {
         </h1>
         {MONTHS.map((month, idx) => (
           <div key={idx} className="month-page mb-12">
-            <MonthCalendar 
-              monthInfo={month} 
-              notes={notes} 
-              onSaveNote={() => {}} 
+            <MonthCalendar
+              monthInfo={month}
+              notes={notes}
+              onSaveNote={() => { }}
               isPrintMode={true}
             />
           </div>
@@ -158,12 +167,12 @@ export default function App() {
               <Printer size={24} /> Print Schedule
             </h3>
             <p className="text-mariners-silver mb-6 text-sm leading-relaxed">
-              Printing is restricted while viewing inside this preview window. 
-              <br/><br/>
+              Printing is restricted while viewing inside this preview window.
+              <br /><br />
               To print your schedule, please open the application in a new tab using the <strong>Open in new tab</strong> button (usually an arrow icon in the top right of the preview header), then click Print again.
             </p>
             <div className="flex justify-end">
-              <button 
+              <button
                 onClick={() => setShowPrintWarning(false)}
                 className="bg-mariners-teal hover:bg-mariners-teal/80 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
               >
@@ -177,22 +186,22 @@ export default function App() {
   );
 }
 
-function MonthCalendar({ 
-  monthInfo, 
-  notes, 
-  onSaveNote, 
-  isPrintMode = false 
-}: { 
-  monthInfo: any, 
-  notes: { [key: string]: string }, 
+function MonthCalendar({
+  monthInfo,
+  notes,
+  onSaveNote,
+  isPrintMode = false
+}: {
+  monthInfo: any,
+  notes: { [key: string]: string },
   onSaveNote: (id: string, content: string) => void,
   isPrintMode?: boolean
 }) {
   const { name, year, startMonth, endMonth } = monthInfo;
-  
+
   // Generate all days for the month(s)
   const days: Date[] = [];
-  
+
   // For Mar/Apr, we handle them together
   if (startMonth !== endMonth) {
     // March 2026
@@ -233,7 +242,7 @@ function MonthCalendar({
             {day}
           </div>
         ))}
-        
+
         {padding.map((_, i) => (
           <div key={`pad-${i}`} className={`${isPrintMode ? 'bg-white' : 'bg-mariners-navy/20'}`} />
         ))}
@@ -244,11 +253,11 @@ function MonthCalendar({
           const note = notes[dateStr] || '';
 
           return (
-            <DayCell 
-              key={dateStr} 
-              date={date} 
-              game={game} 
-              note={note} 
+            <DayCell
+              key={dateStr}
+              date={date}
+              game={game}
+              note={note}
               onSaveNote={(content) => onSaveNote(dateStr, content)}
               isPrintMode={isPrintMode}
             />
@@ -259,16 +268,16 @@ function MonthCalendar({
   );
 }
 
-function DayCell({ 
-  date, 
-  game, 
-  note, 
+function DayCell({
+  date,
+  game,
+  note,
   onSaveNote,
   isPrintMode
-}: { 
-  date: Date, 
-  game?: Game, 
-  note: string, 
+}: {
+  date: Date,
+  game?: Game,
+  note: string,
   onSaveNote: (content: string) => void,
   isPrintMode: boolean
 }) {
@@ -281,18 +290,17 @@ function DayCell({
   }, [note]);
 
   return (
-    <div className={`group relative flex flex-col min-h-[120px] p-2 transition-colors ${
-      isPrintMode 
-        ? 'bg-white border border-gray-200 text-black' 
+    <div className={`group relative flex flex-col min-h-[120px] p-2 transition-colors ${isPrintMode
+        ? 'bg-white border border-gray-200 text-black'
         : `bg-mariners-navy/40 hover:bg-mariners-navy/60 ${isToday ? 'ring-2 ring-mariners-teal ring-inset' : ''}`
-    }`}>
+      }`}>
       <div className="flex justify-between items-start mb-1">
         <span className={`text-lg font-bold ${isToday ? 'text-mariners-teal' : isPrintMode ? 'text-black' : 'text-white'}`}>
           {day}
         </span>
         {game && (
           <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${isPrintMode ? 'bg-gray-200' : 'bg-mariners-teal text-white'}`}>
-            {game.opponent}
+            {game.isHome ? 'vs ' : '@ '}{game.opponent}
           </span>
         )}
       </div>
@@ -318,7 +326,7 @@ function DayCell({
           className="mt-auto w-full bg-transparent border-none resize-none text-xs text-mariners-silver placeholder:text-mariners-silver/20 focus:ring-0 p-0 h-12 scrollbar-hide"
         />
       )}
-      
+
       {!isPrintMode && localNote && (
         <div className="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <Save size={10} className="text-mariners-teal" />
