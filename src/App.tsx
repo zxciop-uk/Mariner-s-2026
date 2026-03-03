@@ -410,18 +410,18 @@ const DayCell: React.FC<DayCellProps> = ({
 
   if (isPrintMode) {
     if (isHome) {
-      bgClass = 'bg-white text-zinc-950 ring-4 ring-mariners-navy ring-inset';
+      bgClass = 'bg-white text-mariners-navy ring-4 ring-mariners-navy/90 ring-inset';
       textClass = 'text-zinc-950';
-      timeClass = 'text-mariners-navy/90';
-      badgeClass = 'text-mariners-navy';
+      timeClass = 'text-mariners-navy/70';
+      badgeClass = 'text-mariners-navy/90';
     } else if (isAway) {
       bgClass = 'bg-gray-300 border border-[#506464]/20';
       textClass = 'text-gray-400';
       timeClass = 'text-gray-400';
       badgeClass = 'text-gray-400';
     } else {
-      bgClass = 'bg-white text-mariners-navy';
-      textClass = 'text-mariners-navy';
+      bgClass = 'bg-white text-mariners-navy/70';
+      textClass = 'text-mariners-navy/70';
     }
   } else {
     if (isHome) {
@@ -444,30 +444,30 @@ const DayCell: React.FC<DayCellProps> = ({
   }
 
   return (
-    <div className={`group relative flex flex-col h-full min-h-0 p-2 transition-colors ${bgClass} ${isToday && !isPrintMode ? 'ring-2 ring-mariners-teal ring-inset' : ''}`}>
-      <div className="flex justify-between items-start mb-1">
-        <span className={`text-lg font-bold ${isToday && !isPrintMode ? 'text-mariners-teal' : textClass}`}>
+    <div className={`group relative flex flex-col h-full min-h-0 p-1 pt-0.5 transition-colors ${bgClass} ${isToday && !isPrintMode ? 'ring-2 ring-mariners-teal ring-inset' : ''}`}>
+      <div className={`flex justify-between items-start ${isPrintMode ? 'mb-0' : 'mb-1.5'}`}>
+        <span className={`text-lg leading-none font-bold ${isToday && !isPrintMode ? 'text-mariners-teal' : textClass}`}>
           {day}
         </span>
         {!isPrintMode && game && (
-          <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${badgeClass}`}>
+          <span className={`text-[10px] font-black px-0.5 py-0.5 rounded ${badgeClass}`}>
             {game.isHome ? 'vs ' : '@ '}{game.opponent}
           </span>
         )}
       </div>
 
       {game && (
-        <div className={`flex flex-col ${isPrintMode ? 'items-center justify-center flex-1 -mt-4' : 'mb-1'}`}>
+        <div className={`flex flex-col ${isPrintMode ? 'items-center mt-0' : 'mb-0'}`}>
           {isPrintMode && (
-            <div className={`text-sm font-black uppercase tracking-widest ${badgeClass}`}>
+            <div className={`text-[18px] font-black uppercase tracking-widest leading-none ${badgeClass}`}>
               {game.isHome ? 'VS ' : '@ '}{TEAM_ABBR[game.opponent] || game.opponent}
             </div>
           )}
-          <div className={`text-[10px] font-bold uppercase tracking-tight ${timeClass}`}>
+          <div className={`text-[14px] font-bold leading-none uppercase tracking-tight ${timeClass}`}>
             {game.time}
           </div>
           {game.promotion && (
-            <div className={`text-[9px] leading-tight font-medium mt-0.5 ${isPrintMode ? 'text-mariners-navy/80 text-center px-1' : 'text-mariners-teal'}`}>
+            <div className={`text-[9px] leading-none font-medium mt-0.2 ${isPrintMode ? 'text-mariners-navy/50 text-center px-0.1' : 'text-gray-400'}`}>
               {game.promotion}
             </div>
           )}
