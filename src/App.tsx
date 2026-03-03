@@ -19,6 +19,7 @@ export default function App() {
   const [notes, setNotes] = useState<{ [key: string]: string }>({});
   const [isSaving, setIsSaving] = useState(false);
   const [showPrintWarning, setShowPrintWarning] = useState(false);
+  const [showHomeOnly, setShowHomeOnly] = useState(false);
 
   useEffect(() => {
     fetch('/api/notes')
@@ -79,6 +80,20 @@ export default function App() {
           </h1>
         </div>
         <div className="flex items-center gap-4">
+          <div className="flex items-center bg-mariners-navy border border-mariners-teal/30 rounded-lg p-1 mr-2 no-print">
+            <button
+              onClick={() => setShowHomeOnly(false)}
+              className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${!showHomeOnly ? 'bg-mariners-teal text-white' : 'text-mariners-silver hover:text-white'}`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setShowHomeOnly(true)}
+              className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${showHomeOnly ? 'bg-mariners-teal text-white' : 'text-mariners-silver hover:text-white'}`}
+            >
+              Home
+            </button>
+          </div>
           <a
             href="/regular-season-schedule.pdf"
             target="_blank"
@@ -114,6 +129,7 @@ export default function App() {
               monthInfo={MONTHS[currentMonthIdx]}
               notes={notes}
               onSaveNote={saveNote}
+              showHomeOnly={showHomeOnly}
             />
           </motion.div>
         </AnimatePresence>
@@ -151,6 +167,7 @@ export default function App() {
               notes={notes}
               onSaveNote={() => { }}
               isPrintMode={true}
+              showHomeOnly={showHomeOnly}
             />
           </div>
         ))}
@@ -190,12 +207,14 @@ function MonthCalendar({
   monthInfo,
   notes,
   onSaveNote,
-  isPrintMode = false
+  isPrintMode = false,
+  showHomeOnly = false
 }: {
   monthInfo: any,
   notes: { [key: string]: string },
   onSaveNote: (id: string, content: string) => void,
-  isPrintMode?: boolean
+  isPrintMode?: boolean,
+  showHomeOnly?: boolean
 }) {
   const { name, year, startMonth, endMonth } = monthInfo;
 
@@ -250,13 +269,14 @@ function MonthCalendar({
         {days.map(date => {
           const dateStr = date.toISOString().split('T')[0];
           const game = SCHEDULE_DATA.find(g => g.date === dateStr);
+          const displayGame = showHomeOnly && game && !game.isHome ? undefined : game;
           const note = notes[dateStr] || '';
 
           return (
             <DayCell
               key={dateStr}
               date={date}
-              game={game}
+              game={displayGame}
               note={note}
               onSaveNote={(content) => onSaveNote(dateStr, content)}
               isPrintMode={isPrintMode}
