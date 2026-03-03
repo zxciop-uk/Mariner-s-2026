@@ -390,12 +390,12 @@ const DayCell: React.FC<DayCellProps> = ({
 
   if (isPrintMode) {
     if (isHome) {
-      bgClass = 'bg-mariners-navy text-white';
-      textClass = 'text-white';
-      timeClass = 'text-white/90';
-      badgeClass = 'text-white';
+      bgClass = 'bg-white text-mariners-navy ring-4 ring-mariners-navy ring-inset';
+      textClass = 'text-mariners-navy';
+      timeClass = 'text-mariners-navy/90';
+      badgeClass = 'text-mariners-navy';
     } else if (isAway) {
-      bgClass = 'bg-gray-100 text-mariners-navy';
+      bgClass = 'bg-white text-mariners-navy';
       textClass = 'text-mariners-navy';
       timeClass = 'text-mariners-navy/90';
       badgeClass = 'text-mariners-navy';
@@ -447,7 +447,7 @@ const DayCell: React.FC<DayCellProps> = ({
             {game.time}
           </div>
           {game.promotion && (
-            <div className={`text-[9px] leading-tight font-medium mt-0.5 ${isPrintMode ? (isHome ? 'text-white/80' : 'text-mariners-navy/80') : 'text-mariners-teal'} ${isPrintMode ? 'text-center px-1' : ''}`}>
+            <div className={`text-[9px] leading-tight font-medium mt-0.5 ${isPrintMode ? 'text-mariners-navy/80 text-center px-1' : 'text-mariners-teal'}`}>
               {game.promotion}
             </div>
           )}
@@ -455,7 +455,7 @@ const DayCell: React.FC<DayCellProps> = ({
       )}
 
       {isPrintMode ? (
-        <div className={`text-xs italic whitespace-pre-wrap mt-auto ${isHome ? 'text-gray-300' : 'text-gray-700'}`}>
+        <div className="text-xs italic whitespace-pre-wrap mt-auto text-gray-700">
           {note}
         </div>
       ) : (
