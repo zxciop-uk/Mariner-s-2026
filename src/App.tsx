@@ -415,7 +415,7 @@ const DayCell: React.FC<DayCellProps> = ({
       timeClass = 'text-mariners-navy/90';
       badgeClass = 'text-mariners-navy';
     } else if (isAway) {
-      bgClass = 'bg-[#506464]/30 border border-[#506464]/20';
+      bgClass = 'bg-gray-400 border border-[#506464]/20';
       textClass = 'text-gray-500';
       timeClass = 'text-mariners-navy/50';
       badgeClass = 'text-mariners-navy';
