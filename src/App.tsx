@@ -33,31 +33,29 @@ export default function App() {
   const [currentMonthIdx, setCurrentMonthIdx] = useState(0);
   const [direction, setDirection] = useState(1);
   const [notes, setNotes] = useState<{ [key: string]: string }>({});
-  const [isSaving, setIsSaving] = useState(false);
+
   const [showPrintWarning, setShowPrintWarning] = useState(false);
   const [showHomeOnly, setShowHomeOnly] = useState(false);
 
   useEffect(() => {
-    fetch('/api/notes')
-      .then(res => res.json())
-      .then(data => setNotes(data))
-      .catch(err => console.error("Failed to fetch notes", err));
+    try {
+      const stored = localStorage.getItem('mariners-notes');
+      if (stored) setNotes(JSON.parse(stored));
+    } catch (err) {
+      console.error('Failed to load notes', err);
+    }
   }, []);
 
-  const saveNote = async (id: string, content: string) => {
-    setIsSaving(true);
-    try {
-      await fetch('/api/notes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, content }),
-      });
-      setNotes(prev => ({ ...prev, [id]: content }));
-    } catch (err) {
-      console.error("Failed to save note", err);
-    } finally {
-      setIsSaving(false);
-    }
+  const saveNote = (id: string, content: string) => {
+    setNotes(prev => {
+      const updated = { ...prev, [id]: content };
+      try {
+        localStorage.setItem('mariners-notes', JSON.stringify(updated));
+      } catch (err) {
+        console.error('Failed to save note', err);
+      }
+      return updated;
+    });
   };
 
   const handlePrint = () => {
@@ -128,7 +126,7 @@ export default function App() {
             <Printer size={18} />
             Print Schedule
           </button>
-          {isSaving && <span className="text-xs text-mariners-silver animate-pulse">Saving...</span>}
+
         </div>
       </header>
 
