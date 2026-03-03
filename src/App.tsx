@@ -411,7 +411,7 @@ const DayCell: React.FC<DayCellProps> = ({
   if (isPrintMode) {
     if (isHome) {
       bgClass = 'bg-white text-mariners-navy ring-4 ring-mariners-navy ring-inset';
-      textClass = 'text-mariners-navy/90';
+      textClass = 'text-zinc-950';
       timeClass = 'text-mariners-navy/90';
       badgeClass = 'text-mariners-navy';
     } else if (isAway) {
