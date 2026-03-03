@@ -425,8 +425,8 @@ const DayCell: React.FC<DayCellProps> = ({
     }
   } else {
     if (isHome) {
-      bgClass = 'bg-mariners-navy/80 border border-mariners-teal/30';
-      textClass = 'text-white';
+      bgClass = 'bg-mariners-navy/20 border border-mariners-teal/30';
+      textClass = 'text-zinc-950/90';
       timeClass = 'text-mariners-silver';
       badgeClass = 'bg-mariners-teal text-white';
       inputClass = 'text-white placeholder:text-white/30';
