@@ -207,7 +207,7 @@ function MonthCalendar({
     // March 2026
     const marchStart = new Date(2026, 2, 1);
     const marchEnd = new Date(2026, 3, 0);
-    for (let d = 1; d <= marchEnd.getDate(); d++) {
+    for (let d = 26; d <= marchEnd.getDate(); d++) {
       days.push(new Date(2026, 2, d));
     }
     // April 2026
@@ -289,17 +289,58 @@ function DayCell({
     setLocalNote(note);
   }, [note]);
 
+  const isHome = game?.isHome;
+  const isAway = game && !game.isHome;
+
+  let bgClass = '';
+  let textClass = '';
+  let timeClass = '';
+  let badgeClass = '';
+  let inputClass = '';
+
+  if (isPrintMode) {
+    if (isHome) {
+      bgClass = 'bg-mariners-navy text-white border-mariners-navy';
+      textClass = 'text-white';
+      timeClass = 'text-gray-300';
+      badgeClass = 'bg-white/20 text-white';
+    } else if (isAway) {
+      bgClass = 'bg-[#506464] text-white border-[#506464]';
+      textClass = 'text-white';
+      timeClass = 'text-white/70';
+      badgeClass = 'bg-white/20 text-white';
+    } else {
+      bgClass = 'bg-white text-black border-gray-200';
+      textClass = 'text-black';
+    }
+  } else {
+    if (isHome) {
+      bgClass = 'bg-mariners-navy border-mariners-teal/30';
+      textClass = 'text-white';
+      timeClass = 'text-mariners-silver';
+      badgeClass = 'bg-mariners-teal text-white';
+      inputClass = 'text-white placeholder:text-white/30';
+    } else if (isAway) {
+      bgClass = 'bg-[#506464] border-[#506464]';
+      textClass = 'text-white';
+      timeClass = 'text-white/70';
+      badgeClass = 'bg-mariners-navy text-white';
+      inputClass = 'text-white placeholder:text-white/40';
+    } else {
+      bgClass = 'bg-mariners-navy/40 hover:bg-mariners-navy/60 border-transparent';
+      textClass = 'text-white';
+      inputClass = 'text-mariners-silver placeholder:text-mariners-silver/20';
+    }
+  }
+
   return (
-    <div className={`group relative flex flex-col min-h-[120px] p-2 transition-colors ${isPrintMode
-        ? 'bg-white border border-gray-200 text-black'
-        : `bg-mariners-navy/40 hover:bg-mariners-navy/60 ${isToday ? 'ring-2 ring-mariners-teal ring-inset' : ''}`
-      }`}>
+    <div className={`group relative flex flex-col min-h-[120px] p-2 border transition-colors ${bgClass} ${isToday && !isPrintMode ? 'ring-2 ring-mariners-teal ring-inset' : ''}`}>
       <div className="flex justify-between items-start mb-1">
-        <span className={`text-lg font-bold ${isToday ? 'text-mariners-teal' : isPrintMode ? 'text-black' : 'text-white'}`}>
+        <span className={`text-lg font-bold ${isToday && !isPrintMode ? 'text-mariners-teal' : textClass}`}>
           {day}
         </span>
         {game && (
-          <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${isPrintMode ? 'bg-gray-200' : 'bg-mariners-teal text-white'}`}>
+          <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${badgeClass}`}>
             {game.isHome ? 'vs ' : '@ '}{game.opponent}
           </span>
         )}
@@ -307,14 +348,14 @@ function DayCell({
 
       {game && (
         <div className="mb-2">
-          <div className={`text-[10px] font-bold uppercase tracking-tight ${isPrintMode ? 'text-gray-600' : 'text-mariners-silver'}`}>
+          <div className={`text-[10px] font-bold uppercase tracking-tight ${timeClass}`}>
             {game.time}
           </div>
         </div>
       )}
 
       {isPrintMode ? (
-        <div className="text-xs italic text-gray-700 whitespace-pre-wrap mt-auto">
+        <div className={`text-xs italic whitespace-pre-wrap mt-auto ${isHome ? 'text-gray-300' : 'text-gray-700'}`}>
           {note}
         </div>
       ) : (
@@ -323,13 +364,13 @@ function DayCell({
           onChange={(e) => setLocalNote(e.target.value)}
           onBlur={() => onSaveNote(localNote)}
           placeholder="Add note..."
-          className="mt-auto w-full bg-transparent border-none resize-none text-xs text-mariners-silver placeholder:text-mariners-silver/20 focus:ring-0 p-0 h-12 scrollbar-hide"
+          className={`mt-auto w-full bg-transparent border-none resize-none text-xs focus:ring-0 p-0 h-12 scrollbar-hide ${inputClass}`}
         />
       )}
 
       {!isPrintMode && localNote && (
         <div className="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <Save size={10} className="text-mariners-teal" />
+          <Save size={10} className={isAway ? 'text-white' : 'text-mariners-teal'} />
         </div>
       )}
     </div>
