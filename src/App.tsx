@@ -415,9 +415,9 @@ const DayCell: React.FC<DayCellProps> = ({
       timeClass = 'text-mariners-navy/90';
       badgeClass = 'text-mariners-navy';
     } else if (isAway) {
-      bgClass = 'bg-[#506464]/70 border border-[#506464]/50';
+      bgClass = 'bg-[#506464]/30 border border-[#506464]/20';
       textClass = 'text-gray-500';
-      timeClass = 'text-mariners-navy/90';
+      timeClass = 'text-mariners-navy/50';
       badgeClass = 'text-mariners-navy';
     } else {
       bgClass = 'bg-white text-mariners-navy';
@@ -425,8 +425,8 @@ const DayCell: React.FC<DayCellProps> = ({
     }
   } else {
     if (isHome) {
-      bgClass = 'bg-mariners-navy/20 border border-mariners-teal/30';
-      textClass = 'text-zinc-950/90';
+      bgClass = 'bg-mariners-navy/80 border border-mariners-teal/30';
+      textClass = 'text-white';
       timeClass = 'text-mariners-silver';
       badgeClass = 'bg-mariners-teal text-white';
       inputClass = 'text-white placeholder:text-white/30';
