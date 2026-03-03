@@ -411,8 +411,8 @@ const DayCell: React.FC<DayCellProps> = ({
   if (isPrintMode) {
     if (isHome) {
       bgClass = 'bg-white text-mariners-navy ring-4 ring-mariners-navy ring-inset';
-      textClass = 'text-mariners-navy/70';
-      timeClass = 'text-mariners-navy/70';
+      textClass = 'text-mariners-navy/90';
+      timeClass = 'text-mariners-navy/90';
       badgeClass = 'text-mariners-navy';
     } else if (isAway) {
       bgClass = 'bg-[#506464]/70 border border-[#506464]/50';
@@ -425,7 +425,7 @@ const DayCell: React.FC<DayCellProps> = ({
     }
   } else {
     if (isHome) {
-      bgClass = 'bg-mariners-navy/50 border border-mariners-teal/30';
+      bgClass = 'bg-mariners-navy/80 border border-mariners-teal/30';
       textClass = 'text-white';
       timeClass = 'text-mariners-silver';
       badgeClass = 'bg-mariners-teal text-white';
