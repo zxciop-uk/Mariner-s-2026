@@ -94,16 +94,16 @@ export default function App() {
               Home
             </button>
           </div>
-          <a 
-            href="/regular-season-schedule.pdf" 
-            target="_blank" 
+          <a
+            href="/regular-season-schedule.pdf"
+            target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-mariners-navy border border-mariners-teal text-mariners-teal hover:bg-mariners-teal hover:text-white px-4 py-2 rounded-lg transition-colors font-semibold text-sm"
           >
             <FileText size={18} />
             Original PDF
           </a>
-          <button 
+          <button
             onClick={handlePrint}
             className="flex items-center gap-2 bg-mariners-teal hover:bg-mariners-teal/80 px-4 py-2 rounded-lg transition-colors font-semibold text-sm"
           >
@@ -125,10 +125,10 @@ export default function App() {
             transition={{ type: 'spring', damping: 20, stiffness: 100 }}
             className="h-full w-full p-4 md:p-8"
           >
-            <MonthCalendar 
-              monthInfo={MONTHS[currentMonthIdx]} 
-              notes={notes} 
-              onSaveNote={saveNote} 
+            <MonthCalendar
+              monthInfo={MONTHS[currentMonthIdx]}
+              notes={notes}
+              onSaveNote={saveNote}
               showHomeOnly={showHomeOnly}
             />
           </motion.div>
@@ -136,7 +136,7 @@ export default function App() {
 
         {/* Navigation Controls */}
         <div className="absolute inset-y-0 left-0 flex items-center p-4">
-          <button 
+          <button
             onClick={prevMonth}
             disabled={currentMonthIdx === 0}
             className="p-3 rounded-full bg-mariners-navy/80 border border-mariners-teal/30 hover:bg-mariners-teal transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
@@ -145,7 +145,7 @@ export default function App() {
           </button>
         </div>
         <div className="absolute inset-y-0 right-0 flex items-center p-4">
-          <button 
+          <button
             onClick={nextMonth}
             disabled={currentMonthIdx === MONTHS.length - 1}
             className="p-3 rounded-full bg-mariners-navy/80 border border-mariners-teal/30 hover:bg-mariners-teal transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
@@ -159,10 +159,10 @@ export default function App() {
       <div className="print-only bg-white text-black">
         {MONTHS.map((month, idx) => (
           <div key={idx} className="month-page">
-            <MonthCalendar 
-              monthInfo={month} 
-              notes={notes} 
-              onSaveNote={() => {}} 
+            <MonthCalendar
+              monthInfo={month}
+              notes={notes}
+              onSaveNote={() => { }}
               isPrintMode={true}
               showHomeOnly={showHomeOnly}
             />
@@ -181,12 +181,12 @@ export default function App() {
               <Printer size={24} /> Print Schedule
             </h3>
             <p className="text-mariners-silver mb-6 text-sm leading-relaxed">
-              Printing is restricted while viewing inside this preview window. 
-              <br/><br/>
+              Printing is restricted while viewing inside this preview window.
+              <br /><br />
               To print your schedule, please open the application in a new tab using the <strong>Open in new tab</strong> button (usually an arrow icon in the top right of the preview header), then click Print again.
             </p>
             <div className="flex justify-end">
-              <button 
+              <button
                 onClick={() => setShowPrintWarning(false)}
                 className="bg-mariners-teal hover:bg-mariners-teal/80 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
               >
@@ -208,18 +208,18 @@ interface MonthCalendarProps {
   showHomeOnly?: boolean;
 }
 
-const MonthCalendar: React.FC<MonthCalendarProps> = ({ 
-  monthInfo, 
-  notes, 
-  onSaveNote, 
+const MonthCalendar: React.FC<MonthCalendarProps> = ({
+  monthInfo,
+  notes,
+  onSaveNote,
   isPrintMode = false,
   showHomeOnly = false
 }) => {
   const { name, printName, year, startMonth, endMonth } = monthInfo;
-  
+
   // Generate all days for the month(s)
   const days: Date[] = [];
-  
+
   // For Mar/Apr, we handle them together
   if (startMonth !== endMonth) {
     // March 2026
@@ -253,11 +253,11 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
 
   const printEndPaddingCount = 42 - totalCells;
   const normalEndPaddingCount = (7 - (totalCells % 7)) % 7;
-  
-  const endPaddingCount = isPrintMode 
+
+  const endPaddingCount = isPrintMode
     ? (showMonthAtEnd ? printEndPaddingCount - 4 : printEndPaddingCount)
     : normalEndPaddingCount;
-    
+
   const endPadding = Array(endPaddingCount).fill(null);
 
   return (
@@ -277,15 +277,15 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
             {day}
           </div>
         ))}
-        
+
         {showMonthAtStart && (
-          <div 
+          <div
             className="bg-[#cbd5e1] text-mariners-navy flex items-center justify-center font-black uppercase tracking-widest text-6xl col-span-3 h-full min-h-0"
           >
             {printName || name}
           </div>
         )}
-        
+
         {startPadding.map((_, i) => (
           <div key={`pad-${i}`} className={`${isPrintMode ? 'bg-white h-full min-h-0' : 'bg-mariners-navy/20'}`} />
         ))}
@@ -297,11 +297,11 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
           const note = notes[dateStr] || '';
 
           return (
-            <DayCell 
-              key={dateStr} 
-              date={date} 
-              game={displayGame} 
-              note={note} 
+            <DayCell
+              key={dateStr}
+              date={date}
+              game={displayGame}
+              note={note}
               onSaveNote={(content) => onSaveNote(dateStr, content)}
               isPrintMode={isPrintMode}
             />
@@ -313,7 +313,7 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
         ))}
 
         {showMonthAtEnd && (
-          <div 
+          <div
             className="bg-[#cbd5e1] text-mariners-navy flex items-center justify-center font-black uppercase tracking-widest text-6xl col-span-4 h-full min-h-0"
           >
             {printName || name}
@@ -364,10 +364,10 @@ const TEAM_ABBR: Record<string, string> = {
   'Rockies': 'COL'
 };
 
-const DayCell: React.FC<DayCellProps> = ({ 
-  date, 
-  game, 
-  note, 
+const DayCell: React.FC<DayCellProps> = ({
+  date,
+  game,
+  note,
   onSaveNote,
   isPrintMode
 }) => {
@@ -395,8 +395,8 @@ const DayCell: React.FC<DayCellProps> = ({
       timeClass = 'text-mariners-navy/90';
       badgeClass = 'text-mariners-navy';
     } else if (isAway) {
-      bgClass = 'bg-white text-mariners-navy';
-      textClass = 'text-mariners-navy';
+      bgClass = 'bg-white text-gray-500';
+      textClass = 'text-gray-500';
       timeClass = 'text-mariners-navy/90';
       badgeClass = 'text-mariners-navy';
     } else {
@@ -405,7 +405,7 @@ const DayCell: React.FC<DayCellProps> = ({
     }
   } else {
     if (isHome) {
-      bgClass = 'bg-mariners-navy border border-mariners-teal/30';
+      bgClass = 'bg-mariners-navy/50 border border-mariners-teal/30';
       textClass = 'text-white';
       timeClass = 'text-mariners-silver';
       badgeClass = 'bg-mariners-teal text-white';
@@ -467,7 +467,7 @@ const DayCell: React.FC<DayCellProps> = ({
           className={`mt-auto w-full bg-transparent border-none resize-none text-xs focus:ring-0 p-0 h-12 scrollbar-hide ${inputClass}`}
         />
       )}
-      
+
       {!isPrintMode && localNote && (
         <div className="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <Save size={10} className={isAway ? 'text-white' : 'text-mariners-teal'} />
