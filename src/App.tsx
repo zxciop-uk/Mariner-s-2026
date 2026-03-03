@@ -131,7 +131,7 @@ export default function App() {
       </header>
 
       {/* Main Content / Film Strip */}
-      <main className="flex-1 relative overflow-hidden bg-zinc-950 no-print bg-[url('/logo.png')] bg-center bg-no-repeat bg-cover">
+      <main className="flex-1 relative overflow-hidden bg-zinc-950 no-print bg-[url('/logo.png')] bg-center bg-no-repeat bg-cover bg-fixed">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentMonthIdx}
@@ -141,19 +141,21 @@ export default function App() {
             animate="center"
             exit="exit"
             transition={{ type: 'spring', damping: 20, stiffness: 100 }}
-            className="h-full w-full p-4 md:p-8"
+            className="absolute inset-0 p-4 md:p-8 flex flex-col justify-center"
           >
-            <MonthCalendar
-              monthInfo={MONTHS[currentMonthIdx]}
-              notes={notes}
-              onSaveNote={saveNote}
-              showHomeOnly={showHomeOnly}
-            />
+            <div className="w-full max-w-7xl mx-auto h-[85vh] md:h-[80vh]">
+              <MonthCalendar
+                monthInfo={MONTHS[currentMonthIdx]}
+                notes={notes}
+                onSaveNote={saveNote}
+                showHomeOnly={showHomeOnly}
+              />
+            </div>
           </motion.div>
         </AnimatePresence>
 
         {/* Navigation Controls */}
-        <div className="absolute inset-y-0 left-0 flex items-center p-4">
+        <div className="absolute inset-y-0 left-0 flex items-center p-4 z-10">
           <button
             onClick={prevMonth}
             disabled={currentMonthIdx === 0}
@@ -162,7 +164,7 @@ export default function App() {
             <ChevronLeft size={32} />
           </button>
         </div>
-        <div className="absolute inset-y-0 right-0 flex items-center p-4">
+        <div className="absolute inset-y-0 right-0 flex items-center p-4 z-10">
           <button
             onClick={nextMonth}
             disabled={currentMonthIdx === MONTHS.length - 1}
@@ -279,19 +281,19 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
   const endPadding = Array(endPaddingCount).fill(null);
 
   return (
-    <div className={`h-full flex flex-col ${isPrintMode ? 'text-black' : 'text-white'}`}>
+    <div className={`h-full flex flex-col relative ${isPrintMode ? 'text-black' : 'text-white'}`}>
       {!isPrintMode && (
-        <div className="mb-6 flex items-baseline gap-4">
-          <h2 className="text-6xl font-black uppercase italic tracking-tighter text-mariners-teal">
+        <div className="absolute -top-4 md:-top-6 left-4 md:left-8 z-20 pointer-events-none flex items-baseline gap-4 opacity-40 drop-shadow-lg">
+          <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter text-mariners-teal">
             {name}
           </h2>
-          <span className="text-2xl font-light text-mariners-silver">{year}</span>
+          <span className="text-2xl md:text-4xl font-light text-mariners-silver">{year}</span>
         </div>
       )}
 
-      <div className={`grid grid-cols-7 gap-[2px] flex-1 ${isPrintMode ? 'bg-mariners-navy border-2 border-mariners-navy grid-rows-[repeat(6,minmax(0,1fr))]' : 'bg-mariners-teal/20 border border-mariners-teal/20 rounded-xl overflow-hidden backdrop-blur-md'}`}>
+      <div className={`grid grid-cols-7 gap-[2px] flex-1 min-h-0 z-10 ${isPrintMode ? 'bg-mariners-navy border-2 border-mariners-navy grid-rows-[repeat(6,minmax(0,1fr))]' : 'bg-mariners-teal/20 border border-mariners-teal/20 rounded-xl overflow-hidden backdrop-blur-md'}`}>
         {!isPrintMode && DAYS_OF_WEEK.map(day => (
-          <div key={day} className="p-2 text-center text-xs font-bold tracking-widest bg-mariners-navy/80 text-mariners-silver backdrop-blur-sm">
+          <div key={day} className="p-2 text-center text-xs font-bold tracking-widest bg-mariners-navy/80 text-mariners-silver backdrop-blur-sm h-auto">
             {day}
           </div>
         ))}
@@ -442,7 +444,7 @@ const DayCell: React.FC<DayCellProps> = ({
   }
 
   return (
-    <div className={`group relative flex flex-col ${isPrintMode ? 'h-full min-h-0' : 'min-h-[120px]'} p-2 transition-colors ${bgClass} ${isToday && !isPrintMode ? 'ring-2 ring-mariners-teal ring-inset' : ''}`}>
+    <div className={`group relative flex flex-col h-full min-h-0 p-2 transition-colors ${bgClass} ${isToday && !isPrintMode ? 'ring-2 ring-mariners-teal ring-inset' : ''}`}>
       <div className="flex justify-between items-start mb-1">
         <span className={`text-lg font-bold ${isToday && !isPrintMode ? 'text-mariners-teal' : textClass}`}>
           {day}
