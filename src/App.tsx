@@ -131,7 +131,7 @@ export default function App() {
       </header>
 
       {/* Main Content / Film Strip */}
-      <main className="flex-1 relative overflow-hidden bg-zinc-950 no-print">
+      <main className="flex-1 relative overflow-hidden bg-zinc-950 no-print bg-[url('/logo.png')] bg-center bg-no-repeat bg-cover">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentMonthIdx}
@@ -289,9 +289,9 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
         </div>
       )}
 
-      <div className={`grid grid-cols-7 gap-[2px] flex-1 ${isPrintMode ? 'bg-mariners-navy border-2 border-mariners-navy grid-rows-[repeat(6,minmax(0,1fr))]' : 'bg-mariners-teal/20 border border-mariners-teal/20 rounded-xl overflow-hidden'}`}>
+      <div className={`grid grid-cols-7 gap-[2px] flex-1 ${isPrintMode ? 'bg-mariners-navy border-2 border-mariners-navy grid-rows-[repeat(6,minmax(0,1fr))]' : 'bg-mariners-teal/20 border border-mariners-teal/20 rounded-xl overflow-hidden backdrop-blur-md'}`}>
         {!isPrintMode && DAYS_OF_WEEK.map(day => (
-          <div key={day} className="p-2 text-center text-xs font-bold tracking-widest bg-mariners-navy text-mariners-silver">
+          <div key={day} className="p-2 text-center text-xs font-bold tracking-widest bg-mariners-navy/80 text-mariners-silver backdrop-blur-sm">
             {day}
           </div>
         ))}
@@ -413,7 +413,7 @@ const DayCell: React.FC<DayCellProps> = ({
       timeClass = 'text-mariners-navy/70';
       badgeClass = 'text-mariners-navy';
     } else if (isAway) {
-      bgClass = 'bg-white text-gray-500';
+      bgClass = 'bg-[#506464]/70 border border-[#506464]/50';
       textClass = 'text-gray-500';
       timeClass = 'text-mariners-navy/90';
       badgeClass = 'text-mariners-navy';
