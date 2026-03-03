@@ -410,28 +410,28 @@ const DayCell: React.FC<DayCellProps> = ({
 
   if (isPrintMode) {
     if (isHome) {
-      bgClass = 'bg-white text-mariners-navy ring-4 ring-mariners-navy ring-inset';
+      bgClass = 'bg-white text-zinc-950 ring-4 ring-mariners-navy ring-inset';
       textClass = 'text-zinc-950';
       timeClass = 'text-mariners-navy/90';
       badgeClass = 'text-mariners-navy';
     } else if (isAway) {
-      bgClass = 'bg-gray-400 border border-[#506464]/20';
-      textClass = 'text-gray-500';
-      timeClass = 'text-mariners-navy/50';
-      badgeClass = 'text-mariners-navy';
+      bgClass = 'bg-gray-300 border border-[#506464]/20';
+      textClass = 'text-gray-400';
+      timeClass = 'text-gray-400';
+      badgeClass = 'text-gray-400';
     } else {
       bgClass = 'bg-white text-mariners-navy';
       textClass = 'text-mariners-navy';
     }
   } else {
     if (isHome) {
-      bgClass = 'bg-mariners-navy/70 border border-mariners-teal/30';
-      textClass = 'text-white';
+      bgClass = 'bg-mariners-navy/80 border border-mariners-teal/50';
+      textClass = 'text-bg-linear-to-r from-gray-300 via-gray-500 to-gray-700';
       timeClass = 'text-mariners-silver';
       badgeClass = 'bg-mariners-teal text-white';
       inputClass = 'text-white placeholder:text-white/30';
     } else if (isAway) {
-      bgClass = 'bg-gray-400/70 border border-[#506464]';
+      bgClass = 'bg-gray-500/70 border border-[#506464]';
       textClass = 'text-white';
       timeClass = 'text-white/70';
       badgeClass = 'bg-mariners-navy text-white';
