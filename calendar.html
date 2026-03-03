@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blank Printable Calendar</title>
+    <style>
+        :root {
+            /* Colors based on the provided images */
+            --navy-blue: #002D56;
+            --silver-gray: #D0D5DB;
+            --grid-gap: 2px;
+        }
+
+        /* Set up for landscape printing */
+        @page {
+            size: landscape;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Arial Black', 'Arial Bold', Impact, sans-serif;
+            margin: 0;
+            padding: 20px; /* Padding for screen viewing */
+            background-color: #f0f0f0;
+        }
+
+        /* Container for each distinct printed page */
+        .month-page {
+            width: 100%;
+            height: calc(100vh - 40px); /* Fill most of the screen */
+            min-height: 600px;
+            background-color: white;
+            margin-bottom: 40px; /* Space between pages on screen */
+            box-sizing: border-box;
+            page-break-after: always; /* Force a new printed page after each month */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Slight shadow for screen visibility */
+        }
+
+        /* The grid holding the calendar cells */
+        .calendar-container {
+            display: grid;
+            /* 7 days across */
+            grid-template-columns: repeat(7, 1fr);
+            /* 6 rows down to accommodate all possible month layouts + header rows */
+            grid-template-rows: repeat(6, 1fr);
+            gap: var(--grid-gap);
+            background-color: var(--navy-blue); /* The gap color becomes the grid lines */
+            border: var(--grid-gap) solid var(--navy-blue);
+            height: 100%;
+        }
+
+        /* A standard empty day box */
+        .grid-cell {
+            background-color: white;
+            position: relative;
+        }
+
+        /* The styled header block containing the month name */
+        .title-cell {
+            background-color: var(--silver-gray);
+            color: var(--navy-blue);
+            font-size: 4vw; /* Responsive font size */
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Modifier for top-left aligned titles (Mar/Apr, May, July, August) */
+        .title-cell.top-left {
+            grid-column: 1 / span 3; /* Spans the first 3 columns */
+            padding-left: 2vw;
+            justify-content: flex-start;
+        }
+
+        /* Modifier for bottom-right aligned titles (June, September) */
+        .title-cell.bottom-right {
+            grid-column: 4 / span 4; /* Spans the last 4 columns */
+            padding-right: 2vw;
+            justify-content: flex-end;
+        }
+
+        /* Print specific adjustments to remove screen-only styling */
+        @media print {
+            body {
+                padding: 0;
+                background-color: white;
+            }
+            .month-page {
+                height: 100vh;
+                margin: 0;
+                box-shadow: none;
+                border: none;
+            }
+            .title-cell {
+                font-size: 36pt; /* Fixed size for print reliability */
+            }
+            .title-cell.top-left { padding-left: 20px; }
+            .title-cell.bottom-right { padding-right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MAR./APR. PAGE -->
+    <div class="month-page">
+        <div class="calendar-container">
+            <!-- Header spanning 3 columns -->
+            <div class="title-cell top-left">MAR./APR.</div>
+            <!-- 39 blank cells to fill out the rest of the 42-cell (7x6) grid -->
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        </div>
+    </div>
+
+    <!-- MAY PAGE -->
+    <div class="month-page">
+        <div class="calendar-container">
+            <div class="title-cell top-left">MAY</div>
+            <!-- 39 blank cells -->
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        </div>
+    </div>
+
+    <!-- JUNE PAGE -->
+    <div class="month-page">
+        <div class="calendar-container">
+            <!-- 38 blank cells first -->
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <!-- Header spanning last 4 columns of bottom row -->
+            <div class="title-cell bottom-right">JUNE</div>
+        </div>
+    </div>
+
+    <!-- JULY PAGE -->
+    <div class="month-page">
+        <div class="calendar-container">
+            <div class="title-cell top-left">JULY</div>
+            <!-- 39 blank cells -->
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        </div>
+    </div>
+
+    <!-- AUGUST PAGE -->
+    <div class="month-page">
+        <div class="calendar-container">
+            <div class="title-cell top-left">AUGUST</div>
+            <!-- 39 blank cells -->
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        </div>
+    </div>
+
+    <!-- SEPTEMBER PAGE -->
+    <div class="month-page">
+        <div class="calendar-container">
+            <!-- 38 blank cells first -->
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <!-- Header spanning last 4 columns of bottom row -->
+            <div class="title-cell bottom-right">SEPTEMBER</div>
+        </div>
+    </div>
+
+</body>
+</html>
